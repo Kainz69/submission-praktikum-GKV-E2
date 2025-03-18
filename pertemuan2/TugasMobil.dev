@@ -1,103 +1,62 @@
-#include <GL/glut.h>
+[Project]
+FileName=TugasMobil.dev
+Name=TugasMobil
+Type=0
+Ver=2
+ObjFiles=
+Includes=
+Libs=
+PrivateResource=
+ResourceIncludes=
+MakeIncludes=
+Compiler=-DGLUT_STATIC
+CppCompiler=
+Linker=-lglut32 -lglu32 -lopengl32 -lwinmm -lgdi32
+IsCpp=1
+Icon=
+ExeOutput=
+ObjectOutput=
+LogOutput=
+LogOutputEnabled=0
+OverrideOutput=0
+OverrideOutputName=
+HostApplication=
+UseCustomMakefile=0
+CustomMakefile=
+CommandLine=
+Folders=
+IncludeVersionInfo=0
+SupportXPThemes=0
+CompilerSet=0
+CompilerSettings=0000000000000000000000000
+UnitCount=1
 
-void display() {
-    glClear(GL_COLOR_BUFFER_BIT);
-    
-    glBegin(GL_QUADS);
-    
-    // Warna biru untuk semua kotak
-    glColor3f(0.4f, 0.6f, 0.9f);
-    
-    // Baris bawah (3 kotak)
-    // Kotak kiri bawah
-    glVertex2f(-0.6f, -0.3f);
-    glVertex2f(-0.4f, -0.3f);
-    glVertex2f(-0.4f, -0.1f);
-    glVertex2f(-0.6f, -0.1f);
-    
-    // Kotak tengah bawah
-    glVertex2f(-0.4f, -0.3f);
-    glVertex2f(-0.2f, -0.3f);
-    glVertex2f(-0.2f, -0.1f);
-    glVertex2f(-0.4f, -0.1f);
-    
-    // Kotak kanan bawah
-    glVertex2f(-0.2f, -0.3f);
-    glVertex2f(0.0f, -0.3f);
-    glVertex2f(0.0f, -0.1f);
-    glVertex2f(-0.2f, -0.1f);
-    
-    // Baris atas (2 kotak)
-    // Kotak kiri atas
-    glVertex2f(-0.5f, -0.1f);
-    glVertex2f(-0.3f, -0.1f);
-    glVertex2f(-0.3f, 0.1f);
-    glVertex2f(-0.5f, 0.1f);
-    
-    // Kotak kanan atas
-    glVertex2f(-0.3f, -0.1f);
-    glVertex2f(-0.1f, -0.1f);
-    glVertex2f(-0.1f, 0.1f);
-    glVertex2f(-0.3f, 0.1f);
-    
-    glEnd();
-    
-    // Gambar garis batas untuk setiap kotak (outline hitam)
-    glColor3f(0.0f, 0.0f, 0.0f);
-    glLineWidth(2.0f);
-    
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(-0.6f, -0.3f);
-    glVertex2f(-0.4f, -0.3f);
-    glVertex2f(-0.4f, -0.1f);
-    glVertex2f(-0.6f, -0.1f);
-    glEnd();
-    
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(-0.4f, -0.3f);
-    glVertex2f(-0.2f, -0.3f);
-    glVertex2f(-0.2f, -0.1f);
-    glVertex2f(-0.4f, -0.1f);
-    glEnd();
-    
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(-0.2f, -0.3f);
-    glVertex2f(0.0f, -0.3f);
-    glVertex2f(0.0f, -0.1f);
-    glVertex2f(-0.2f, -0.1f);
-    glEnd();
-    
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(-0.5f, -0.1f);
-    glVertex2f(-0.3f, -0.1f);
-    glVertex2f(-0.3f, 0.1f);
-    glVertex2f(-0.5f, 0.1f);
-    glEnd();
-    
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(-0.3f, -0.1f);
-    glVertex2f(-0.1f, -0.1f);
-    glVertex2f(-0.1f, 0.1f);
-    glVertex2f(-0.3f, 0.1f);
-    glEnd();
-    
-    glFlush();
-}
+[VersionInfo]
+Major=1
+Minor=0
+Release=0
+Build=0
+LanguageID=1033
+CharsetID=1252
+CompanyName=
+FileVersion=
+FileDescription=Developed using the Dev-C++ IDE
+InternalName=
+LegalCopyright=
+LegalTrademarks=
+OriginalFilename=
+ProductName=
+ProductVersion=
+AutoIncBuildNr=0
+SyncProduct=1
 
-void init() {
-    glClearColor(1.0, 1.0, 1.0, 1.0);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluOrtho2D(-1.0, 1.0, -1.0, 1.0);
-}
+[Unit1]
+FileName=main.cpp
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
 
-int main(int argc, char** argv) {
-    glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-    glutInitWindowSize(500, 500);
-    glutCreateWindow("Piramida Kotak");
-    init();
-    glutDisplayFunc(display);
-    glutMainLoop();
-    return 0;
-}
