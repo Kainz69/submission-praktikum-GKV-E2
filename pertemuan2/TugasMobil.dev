@@ -1,91 +1,96 @@
 #include <GL/glut.h>
+#include <math.h>
+
+float carPosX = 0.0f;
 
 void display() {
     glClear(GL_COLOR_BUFFER_BIT);
-    
+    glLoadIdentity();
+
+    // Gambar jalan
+    glColor3f(0.2f, 0.2f, 0.2f);
     glBegin(GL_QUADS);
+        glVertex2f(-1.0f, -0.5f);
+        glVertex2f(1.0f, -0.5f);
+        glVertex2f(1.0f, -1.0f);
+        glVertex2f(-1.0f, -1.0f);
+    glEnd();
+
+    // Garis tengah jalan
+    glColor3f(1.0f, 1.0f, 1.0f);
+    glBegin(GL_LINES);
+        glVertex2f(-1.0f, -0.75f);
+        glVertex2f(1.0f, -0.75f);
+    glEnd();
+
+    // Gambar mobil
+    glPushMatrix();
+    glTranslatef(carPosX, -0.3f, 0.0f);
     
-    // Warna biru untuk semua kotak
-    glColor3f(0.4f, 0.6f, 0.9f);
-    
-    // Baris bawah (3 kotak)
-    // Kotak kiri bawah
-    glVertex2f(-0.6f, -0.3f);
-    glVertex2f(-0.4f, -0.3f);
-    glVertex2f(-0.4f, -0.1f);
-    glVertex2f(-0.6f, -0.1f);
-    
-    // Kotak tengah bawah
-    glVertex2f(-0.4f, -0.3f);
-    glVertex2f(-0.2f, -0.3f);
-    glVertex2f(-0.2f, -0.1f);
-    glVertex2f(-0.4f, -0.1f);
-    
-    // Kotak kanan bawah
-    glVertex2f(-0.2f, -0.3f);
-    glVertex2f(0.0f, -0.3f);
-    glVertex2f(0.0f, -0.1f);
-    glVertex2f(-0.2f, -0.1f);
-    
-    // Baris atas (2 kotak)
-    // Kotak kiri atas
-    glVertex2f(-0.5f, -0.1f);
-    glVertex2f(-0.3f, -0.1f);
-    glVertex2f(-0.3f, 0.1f);
-    glVertex2f(-0.5f, 0.1f);
-    
-    // Kotak kanan atas
-    glVertex2f(-0.3f, -0.1f);
-    glVertex2f(-0.1f, -0.1f);
-    glVertex2f(-0.1f, 0.1f);
-    glVertex2f(-0.3f, 0.1f);
-    
+    // Body mobil
+    glColor3f(1.0f, 0.0f, 1.0f);
+    glBegin(GL_QUADS);
+        glVertex2f(-0.2f, -0.1f);
+        glVertex2f(0.2f, -0.1f);
+        glVertex2f(0.2f, 0.1f);
+        glVertex2f(-0.2f, 0.1f);
     glEnd();
     
-    // Gambar garis batas untuk setiap kotak (outline hitam)
+    // Atap mobil
+    glBegin(GL_QUADS);
+        glVertex2f(-0.15f, 0.1f);
+        glVertex2f(0.15f, 0.1f);
+        glVertex2f(0.1f, 0.2f);
+        glVertex2f(-0.1f, 0.2f);
+    glEnd();
+    
+    // Kaca mobil
+    glColor3f(0.5f, 0.8f, 1.0f);
+    glBegin(GL_QUADS);
+        glVertex2f(-0.1f, 0.1f);
+        glVertex2f(0.1f, 0.1f);
+        glVertex2f(0.08f, 0.18f);
+        glVertex2f(-0.08f, 0.18f);
+    glEnd();
+    
+    // Roda kiri
     glColor3f(0.0f, 0.0f, 0.0f);
-    glLineWidth(2.0f);
-    
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(-0.6f, -0.3f);
-    glVertex2f(-0.4f, -0.3f);
-    glVertex2f(-0.4f, -0.1f);
-    glVertex2f(-0.6f, -0.1f);
+    glBegin(GL_POLYGON);
+        for (int i = 0; i < 360; i += 30) {
+            float rad = i * 3.14159 / 180;
+            glVertex2f(-0.12f + 0.05f * cos(rad), -0.12f + 0.05f * sin(rad));
+        }
     glEnd();
     
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(-0.4f, -0.3f);
-    glVertex2f(-0.2f, -0.3f);
-    glVertex2f(-0.2f, -0.1f);
-    glVertex2f(-0.4f, -0.1f);
+    // Roda kanan
+    glBegin(GL_POLYGON);
+        for (int i = 0; i < 360; i += 30) {
+            float rad = i * 3.14159 / 180;
+            glVertex2f(0.12f + 0.05f * cos(rad), -0.12f + 0.05f * sin(rad));
+        }
     glEnd();
     
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(-0.2f, -0.3f);
-    glVertex2f(0.0f, -0.3f);
-    glVertex2f(0.0f, -0.1f);
-    glVertex2f(-0.2f, -0.1f);
-    glEnd();
-    
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(-0.5f, -0.1f);
-    glVertex2f(-0.3f, -0.1f);
-    glVertex2f(-0.3f, 0.1f);
-    glVertex2f(-0.5f, 0.1f);
-    glEnd();
-    
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(-0.3f, -0.1f);
-    glVertex2f(-0.1f, -0.1f);
-    glVertex2f(-0.1f, 0.1f);
-    glVertex2f(-0.3f, 0.1f);
-    glEnd();
-    
-    glFlush();
+    glPopMatrix();
+    glutSwapBuffers();
+}
+
+void keyboard(unsigned char key, int x, int y) {
+    switch (key) {
+        case 'w': // Maju
+            carPosX += 0.05f;
+            break;
+        case 's': // Mundur
+            carPosX -= 0.05f;
+            break;
+        case 27: // ESC untuk keluar
+            exit(0);
+            break;
+    }
+    glutPostRedisplay();
 }
 
 void init() {
-    glClearColor(1.0, 1.0, 1.0, 1.0);
+    glClearColor(0.0f, 0.6f, 1.0f, 1.0f);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluOrtho2D(-1.0, 1.0, -1.0, 1.0);
@@ -93,11 +98,12 @@ void init() {
 
 int main(int argc, char** argv) {
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
     glutInitWindowSize(500, 500);
-    glutCreateWindow("Piramida Kotak");
+    glutCreateWindow("Mobil Bergerak");
     init();
     glutDisplayFunc(display);
+    glutKeyboardFunc(keyboard);
     glutMainLoop();
     return 0;
 }
